@@ -1,0 +1,128 @@
+-- Function to create the GUI
+local function createGui()
+    local players = game.Players:GetPlayers()
+    local currentIndex = 1
+
+    -- Create ScreenGui for player info
+    local playerInfoGui = Instance.new("ScreenGui")
+    playerInfoGui.Name = "PlayerInfoGui"
+    playerInfoGui.ResetOnSpawn = false -- Ensure GUI persists after respawn
+    playerInfoGui.Enabled = false
+    playerInfoGui.Parent = game.CoreGui -- Use CoreGui to ensure it persists
+
+    -- Create Frame for player info
+    local playerInfoFrame = Instance.new("Frame")
+    playerInfoFrame.Name = "PlayerInfoFrame"
+    playerInfoFrame.Size = UDim2.new(0.3, 0, 0.4, 0)
+    playerInfoFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    playerInfoFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+    playerInfoFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    playerInfoFrame.BorderSizePixel = 2
+    playerInfoFrame.Parent = playerInfoGui
+
+    -- Create TextLabel for Username
+    local usernameLabel = Instance.new("TextLabel")
+    usernameLabel.Name = "UsernameLabel"
+    usernameLabel.Size = UDim2.new(0.9, 0, 0.2, 0)
+    usernameLabel.Position = UDim2.new(0.05, 0, 0.7, 0)
+    usernameLabel.BackgroundTransparency = 1
+    usernameLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    usernameLabel.TextScaled = true
+    usernameLabel.Text = "Username"
+    usernameLabel.Parent = playerInfoFrame
+
+    -- Create ImageLabel for Avatar
+    local avatarImage = Instance.new("ImageLabel")
+    avatarImage.Name = "AvatarImage"
+    avatarImage.Size = UDim2.new(0.5, 0, 0.5, 0)
+    avatarImage.Position = UDim2.new(0.25, 0, 0.1, 0)
+    avatarImage.BackgroundTransparency = 1
+    avatarImage.Image = ""
+    avatarImage.Parent = playerInfoFrame
+
+    -- Function to update the displayed player info
+    local function updatePlayerInfo()
+        if #players == 0 then
+            usernameLabel.Text = "No players found"
+            avatarImage.Image = ""
+            return
+        end
+
+        local player = players[currentIndex]
+        local userId = player.UserId
+        local username = player.Name
+
+        usernameLabel.Text = "Username: " .. username
+        avatarImage.Image = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. userId .. "&width=420&height=420&format=png"
+    end
+
+    -- Initial update
+    updatePlayerInfo()
+
+    -- Create Refresh Button
+    local refreshButton = Instance.new("TextButton")
+    refreshButton.Name = "RefreshButton"
+    refreshButton.Text = "Next Player"
+    refreshButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+    refreshButton.Position = UDim2.new(0.55, 0, 0.85, 0)
+    refreshButton.Parent = playerInfoFrame
+
+    refreshButton.MouseButton1Click:Connect(function()
+        currentIndex = currentIndex % #players + 1
+        updatePlayerInfo()
+    end)
+
+    -- Create Previous Button
+    local previousButton = Instance.new("TextButton")
+    previousButton.Name = "PreviousButton"
+    previousButton.Text = "Previous Player"
+    previousButton.Size = UDim2.new(0.4, 0, 0.1, 0)
+    previousButton.Position = UDim2.new(0.05, 0, 0.85, 0)
+    previousButton.Parent = playerInfoFrame
+
+    previousButton.MouseButton1Click:Connect(function()
+        currentIndex = (currentIndex - 2 + #players) % #players + 1
+        updatePlayerInfo()
+    end)
+
+    -- Create Close Button
+    local closeButton = Instance.new("TextButton")
+    closeButton.Name = "CloseButton"
+    closeButton.Text = "X"
+    closeButton.Size = UDim2.new(0.1, 0, 0.2, 0)
+    closeButton.Position = UDim2.new(0.9, 0, 0, 0)
+    closeButton.Parent = playerInfoFrame
+
+    closeButton.MouseButton1Click:Connect(function()
+        playerInfoGui.Enabled = false
+    end)
+
+    -- Create Toggle Button
+    local toggleGui = Instance.new("ScreenGui")
+    toggleGui.Name = "ToggleGui"
+    toggleGui.ResetOnSpawn = false -- Ensure GUI persists after respawn
+    toggleGui.Enabled = true
+    toggleGui.Parent = game.CoreGui -- Use CoreGui to ensure it persists
+
+    local toggleFrame = Instance.new("Frame")
+    toggleFrame.Name = "ToggleFrame"
+    toggleFrame.Size = UDim2.new(0.1, 0, 0.1, 0)
+    toggleFrame.Position = UDim2.new(0.9, 0, 0.1, 0)
+    toggleFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    toggleFrame.BorderSizePixel = 2
+    toggleFrame.Parent = toggleGui
+
+    local toggleButton = Instance.new("TextButton")
+    toggleButton.Name = "ToggleButton"
+    toggleButton.Text = "Open GUI"
+    toggleButton.Size = UDim2.new(1, 0, 1, 0)
+    toggleButton.Parent = toggleFrame
+
+    toggleButton.MouseButton1Click:Connect(function()
+        playerInfoGui.Enabled = not playerInfoGui.Enabled
+        toggleButton.Text = playerInfoGui.Enabled and "Close GUI" or "Open GUI"
+    end)
+end
+
+-- Call function to create the GUI
+createGui()
