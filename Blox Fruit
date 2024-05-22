@@ -1,0 +1,52 @@
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+local function Tweento(targetCFrame)
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    local tweenInfo = TweenInfo.new(
+        2,
+        Enum.EasingStyle.Quad,
+        Enum.EasingDirection.Out
+    )
+    local goal = {CFrame = targetCFrame}
+    local tween = TweenService:Create(humanoidRootPart, tweenInfo, goal)
+    tween:Play()
+    tween.Completed:Wait()
+end
+
+local function TweenMirage()
+    repeat
+        wait()
+    until Workspace:FindFirstChild("Map") and Workspace.Map:FindFirstChild("MysticIsland")
+
+    local mysticIsland = Workspace.Map:FindFirstChild("MysticIsland")
+    if mysticIsland then
+        local allNPCS = {}
+
+        for _, npc in pairs(Workspace.NPCs:GetChildren()) do
+            table.insert(allNPCS, npc)
+        end
+
+        local nilInstances = getnilinstances and getnilinstances() or {}
+        for _, npc in pairs(nilInstances) do
+            if npc:IsA("Model") then
+                table.insert(allNPCS, npc)
+            end
+        end
+
+        for _, npc in pairs(allNPCS) do
+            if npc.Name == "Advanced Fruit Dealer" then
+                local humanoidRootPart = npc:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    Tweento(humanoidRootPart.CFrame)
+                    break
+                end
+            end
+        end
+    end
+end
+
+TweenMirage()
