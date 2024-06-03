@@ -1,0 +1,99 @@
+getgenv().Settings = {
+    ["Silent"] = {
+        ["Enabled"] = true,
+        ["AimPart"] = "HumanoidRootPart",
+        ["WallCheck"] = true,
+        ["Visualize"] = false, -- Set to false to avoid any visualization that could cause lag
+        ["Prediction"] = {
+            ["Horizontal"] = 0.17,
+            ["Vertical"] = 0.12,
+        },
+        ["AutoPrediction"] = {
+            ["Enabled"] = true,
+            ["Type"] = "Normal",
+            ["ping20_30"] = 0.16,
+            ["ping30_40"] = 0.155,
+            ["ping40_50"] = 0.15,
+            ["ping50_60"] = 0.145,
+            ["ping60_70"] = 0.14,
+            ["ping70_80"] = 0.135,
+            ["ping80_90"] = 0.13,
+            ["ping90_100"] = 0.125,
+            ["ping100_110"] = 0.12,
+            ["ping110_120"] = 0.115,
+            ["ping120_130"] = 0.11,
+            ["ping130_140"] = 0.105,
+            ["ping140_150"] = 0.1,
+            ["ping150_160"] = 0.095,
+            ["ping160_170"] = 0.09,
+            ["ping170_180"] = 0.085,
+            ["ping180_190"] = 0.08,
+            ["ping190_200"] = 0.075,
+        },
+        ["Mode"] = "Namecall",
+    },
+    ["FOV"] = {
+        ["Enabled"] = false, -- Set to false to avoid any FOV related lag
+        ["Size"] = 35,
+        ["Filled"] = false,
+        ["Thickness"] = 0.1,
+        ["Transparency"] = 0.1,
+        ["Color"] = Color3.fromRGB(0, 255, 0),
+    },
+    ["Misc"] = {
+        ["NoDelay"] = true,
+        ["AutoReload"] = false,
+        ["AutoAir"] = {
+            ["Enabled"] = true,
+            ["Interval"] = 0.5,
+        },
+        ["CMDS"] = {
+            ["Enabled"] = false,
+            ["FOVPrefix"] = "B",
+            ["Prediction"] = "A",
+        },
+    },
+    ["Resolution"] = {
+        ["Value"] = 1,
+    },
+    ["Resolvers"] = {
+        ["Enabled"] = false,
+        ["AutoDetect"] = false,
+        ["Type"] = "Recalculator",
+    },
+    ["Visuals"] = {
+        ["Ambient"] = {
+            ["Enabled"] = false,
+            ["Color"] = Color3.fromRGB(4, 0, 255),
+        },
+        ["OutDoor Ambient"] = {
+            ["Enabled"] = false,
+            ["Color"] = Color3.fromRGB(4, 0, 255),
+        },
+        ["Fog Modifications"] = {
+            ["Enabled"] = false,
+            ["Color"] = Color3.fromRGB(4, 0, 255),
+            ["Start"] = 15,
+            ["End"] = 100,
+        },
+        ["ColorCorrection"] = {
+            ["Enabled"] = false,
+            ["Brightness"] = 0,
+            ["Saturation"] = 5,
+            ["Contrast"] = 2,
+        },
+    },
+}
+
+-- Ensure that this part doesn't lower the graphics settings
+if game:HttpGet("https://raw.githubusercontent.com/bobbbb-b/B/main/77_SJQ0ZC.lua") then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/bobbbb-b/B/main/77_SJQ0ZC.lua"))()
+end
+
+game.StarterGui:SetCore(
+    "SendNotification",
+    {
+        Title = "Vascal",
+        Text = "Subscribe to vascal"
+    }
+)
