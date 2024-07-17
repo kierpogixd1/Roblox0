@@ -1,0 +1,120 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/kierpogixd1/OrionLib/main/lua')))()
+
+local Window = OrionLib:MakeWindow({Name = "Free Script", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Tab = Window:MakeTab({
+	Name = "Tab 1",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+OrionLib:MakeNotification({
+	Name = "Title!",
+	Content = "More features coming out soon!",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+Tab:AddButton({
+	Name = "Hitbox!",
+	Callback = function()--BROUGHT TO YOU BY RSCRIPTS.NET--
+
+local Import = function(rep, file)
+   return loadstring(game:HttpGet(("https://raw.githubusercontent.com/NougatBitz/%s/main/%s"):format(rep, file)))
+end
+local Bypassed = Import("BitzUtils", "CriminalitySimpleACBypass.lua")()
+if Bypassed then
+   Import("BitzUtils", "CrimianlityHitboxExtender.lua")()
+end
+      		print("button pressed")
+  	end    
+})
+Tab:AddButton({
+	Name = "Infinite Stamina",
+	Callback = function()oldStamina =
+			hookfunction(
+				getupvalue(getrenv()._G.S_Take, 2),
+				function(v1, ...)
+					if (Settings.InfiniteStamina) then -- god damn the roblox engine is so shit
+					v1 = 0
+				end
+					return oldStamina(v1, ...)
+				end
+			)
+      		print("button pressed")
+  	end    
+})
+Tab:AddButton({
+	Name = "Melee God Mode",
+	Callback = function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Tobias020108Back/YBA-AUT/main/Criminality-Semi-Godmode.lua"))() 
+      		print("button pressed")
+  	end    
+})
+Tab:AddButton({
+	Name = "Auto Lockpick",
+	Callback = function()print("AutoLockpick............ loaded")
+
+function checkLockpick(...)
+    local frames = { ... };
+    for i,v in pairs(frames) do
+        v.Parent.UIScale.Scale = 10
+        if (v.AbsolutePosition.Y >= 450 and v.AbsolutePosition.Y <= 550) then
+            mouse1click(); task.wait(0.1); mouse1release();
+        end
+    end
+end
+
+while true do task.wait()
+    local pgui = game.Players.LocalPlayer:WaitForChild"PlayerGui"
+    local lpgui = pgui:FindFirstChild'LockpickGUI';
+
+    if (lpgui) then
+
+        local B1 = lpgui.MF.LP_Frame.Frames.B1.Bar.Selection;
+        local B2 = lpgui.MF.LP_Frame.Frames.B2.Bar.Selection;
+        local B3 = lpgui.MF.LP_Frame.Frames.B3.Bar.Selection;
+
+        checkLockpick(B1, B2, B3);
+    end
+end
+      		print("button pressed")
+  	end    
+})
+Tab:AddButton({
+	Name = "Registers+safe esp",
+	Callback = function()function create(safe)
+   pcall(function() if (safe.Ahh.Enabled == true) then safe.Ahh:Destroy() end end)
+   local x = Instance.new('BillboardGui',safe)
+   x.Name = "Ahh"
+   x.AlwaysOnTop = true
+   x.Size = UDim2.new(1.2,0,1.2,0)
+   local b = Instance.new('Frame',x)
+   b.Size = UDim2.new(1.2,0,1.2,0)
+   x.Adornee = safe
+   if safe.Values.Broken.Value ~= false then b.BackgroundColor3 = Color3.new(255,0,0) else b.BackgroundColor3 = Color3.new(0,255,0) end
+end
+
+game:GetService("RunService").Heartbeat:Connect(function()
+   for i,v in pairs(game:GetService("Workspace").Map.BredMakurz:GetChildren()) do
+       create(v)
+   end
+end)
+      		print("button pressed")
+  	end    
+})
+Bind:Set(Enum.KeyCode.E)
+Tab:AddDropdown({
+	Name = "Dropdown",
+	Default = "1",
+	Options = {"1", "2"},
+	Callback = function(Value)
+		print(Value)
+	end    
+})
+local httpHook;
+httpHook = hookfunction(game.HttpGet, function(self,...)
+   local Args = {...}
+   if Args[1] and type(Args[1]) == "string" then
+       if Args[1]:match("checkPremium.php") then
+           return "true"
+       end
+   end
+   return httpHook(self,...)
+end)
